@@ -2,6 +2,11 @@ import Footer from '../../compenent/footer/Footer';
 import Header from '../../compenent/header/Header';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
     const areas = [
@@ -43,6 +48,36 @@ export default function Home() {
                 return '#22C55E';
         }
     };
+
+    const mapOptions = {
+        center: [-2.5307, -44.3068] as [number, number],
+        zoom: 11,
+        scrollWheelZoom: false
+    };
+
+    useEffect(() => {
+        gsap.fromTo('#current-situation',
+            { opacity: 0, y: 80 },
+            { opacity: 1, y: 0,
+                duration: 1.2,
+                ease: 'power3.out'
+            }
+        );
+
+        gsap.fromTo('#map',
+            { opacity: 0, y: 100 },
+            { opacity: 1, y: 0,
+                duration: 1.2,
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: '#map',
+                    start: 'top 80%',
+                    toggleActions: "play none none reset",
+                }
+            }
+        );
+    }, []);
+
     return (
         <>
         <Header />
@@ -58,7 +93,7 @@ export default function Home() {
                         real das regiões de maior risco da cidade de São Luís.</p>
                 </div>
 
-                <div className='mt-10 w-full max-w-sm rounded-2xl border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-8 shadow-2xl backdrop-blur-md'>
+                <div id='current-situation' className='mt-10 w-full max-w-sm rounded-2xl border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-8 shadow-2xl backdrop-blur-md'>
                     <h2 className='mb-5 border-b border-white/10 pb-3 text-xs font-medium tracking-[0.2em] text-[#BBC9CF]'>
                         SITUAÇÃO ATUAL
                     </h2>
@@ -123,7 +158,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className='mt-24 mb-20 px-3 sm:px-5 md:px-15 lg:px-30 xl:px-40'>
+            <section id='map' className='mt-24 mb-20 px-3 sm:px-5 md:px-15 lg:px-30 xl:px-40'>
                 <div className='overflow-hidden rounded-3xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-6 shadow-2xl'>
                     <div className='mb-8 flex items-center justify-between'>
                         <div>
@@ -137,12 +172,12 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className='h-[500px] overflow-hidden rounded-2xl border border-white/10'>
-                        <MapContainer center={[-2.5307, -44.3068]} zoom={11} scrollWheelZoom={false} className='h-full w-full'>
+                    <div className='h-96 overflow-hidden rounded-2xl border border-white/10'>
+                        <MapContainer {...mapOptions} className='h-full w-full'>
                             <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
 
                             {areas.map((area, index) => (
-                                <CircleMarker key={index} center={area.position as [number, number]} radius={20}
+                                <CircleMarker key={index} center={area.position as [number, number]} 
                                     pathOptions={{ color: getColor(area.level), fillColor: getColor(area.level), fillOpacity: 0.5 }}>
                                     <Popup>
                                         <div className='text-sm'>

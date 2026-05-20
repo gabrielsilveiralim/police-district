@@ -127,7 +127,7 @@ export default function Home() {
                         <span className='text-xs text-[#00BFFF]'>
                             SOBRE A PLATAFORMA
                         </span>
-                        <div className='mt-8 gap-10 w-lg md:w-xl lg:w-2xl xl:w-3xl'>
+                        <div className='mt-8 gap-10 w-96 md:w-xl lg:w-2xl xl:w-3xl'>
                             <div>
                                 <h2 className='max-w-xl text-3xl font-bold leading-tight text-white'>
                                         Tecnologia inteligente aplicada ao

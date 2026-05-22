@@ -81,7 +81,7 @@ export default function Dashboard() {
                                 <p className='text-sm tracking-wide text-[#BBC9CF]'> Denúncias Recebidas </p>
                                 <Radio size={22} className='text-[#A4E6FF]'/>
                             </div>
-                            <span className='text-3xl font-bold text-[#A4E6FF]'> 7 </span>
+                            <span className='text-3xl font-bold text-[#A4E6FF]'> 16 </span>
                         </div>
 
                         <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md'>
@@ -89,24 +89,25 @@ export default function Dashboard() {
                                 <p className='text-sm tracking-wide text-[#BBC9CF]'> Viaturas Disponíveis </p>
                                 <CarFront size={22} className='text-[#22C55E]'/>
                             </div>
-                            <span className='text-3xl font-bold text-[#22C55E]'> 7 </span>
+                            <span className='text-3xl font-bold text-[#22C55E]'> 9 </span>
                         </div>
                         <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md'>
                             <div className='mb-3 flex items-center justify-between'>
                                 <p className='text-sm tracking-wide text-[#BBC9CF]'> Áreas Sob Atenção </p>
                                 <CircleAlert size={22} className='text-[#FACC15]'/>
                             </div>
-                            <span className='text-3xl font-bold text-[#FACC15]'> 7 </span>
+                            <span className='text-3xl font-bold text-[#FACC15]'> 2 </span>
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-1 gap-60 md:grid-cols-2'>
-                        <div className='mt-10 h-90 w-96 sm:w-xl lg:h-[450px] lg:w-[650px] rounded-2xl p-6 border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] shadow-2xl'>
+                    <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-6'>
+                        <div className='rounded-2xl p-6 border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] shadow-2xl'>
                             <div className='mb-5'>
-                                <h2 className='text-xl font-bold text-[#BBC9CF]'> Crimes Semanais </h2>
+                                <h2 className='text-xl font-bold text-[#BBC9CF]'>Crimes Semanais</h2>
                             </div>
-                            <ResponsiveContainer width='100%' height='90%'>
-                                    <LineChart data={evo}>                                  
+                            <div className='h-64 lg:h-80'>
+                                <ResponsiveContainer width='100%' height='100%'>
+                                    <LineChart data={evo}>
                                         <CartesianGrid strokeDasharray='3 3' />
                                         <XAxis dataKey='day' />
                                         <YAxis />
@@ -114,41 +115,37 @@ export default function Dashboard() {
                                         <Line
                                             type='monotone'
                                             dataKey='crimes'
-                                            stroke='#020d30'
+                                            stroke='#A4E6FF'
                                             strokeWidth={3} />
                                     </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-
-                        <div className='mt-10 h-[350px] w-80 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl'>
-                            <div className='mb-5 flex items-center justify-between'>
-                                <h2 className='text-xl font-bold text-[#BBC9CF]'> Tipos de Crimes </h2>
-                                <span className='text-xs tracking-wide text-[#BBC9CF]'> RELATÓRIO </span>
+                                </ResponsiveContainer>
                             </div>
-                            <ResponsiveContainer width='100%' height='100%'>
-                                <PieChart>
-                                    <Pie data={pizza}
-                                        dataKey='value'
-                                        cx='50%'
-                                        cy='50%'
-                                        outerRadius={110}>
-                                        {pizza.map((_, index) => (
-                                            <Cell
-                                                key={index}
-                                                fill={COLORS[index]}
-                                            />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                </PieChart>
-                            </ResponsiveContainer>
                         </div>
-                    </div>
-    
-                    
 
-                    
-
+                        <div className='rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl'>
+                            <div className='mb-5 flex items-center justify-between'>
+                                <h2 className='text-xl font-bold text-[#BBC9CF]'>Tipos de Crimes</h2>
+                                <span className='text-xs tracking-wide text-[#BBC9CF]'>RELATÓRIO</span>
+                            </div>
+                            <div className='h-64 lg:h-80'>
+                                <ResponsiveContainer width='100%' height='100%'>
+                                    <PieChart>
+                                        <Pie
+                                            data={pizza}
+                                            dataKey='value'
+                                            cx='50%'
+                                            cy='50%'
+                                            outerRadius={110} >
+                                            {pizza.map((_, index) => (
+                                                <Cell key={index} fill={COLORS[index]} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+                    </div>                    
                 </section>
             </main>
             <Footer />

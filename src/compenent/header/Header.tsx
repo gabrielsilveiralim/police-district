@@ -11,7 +11,7 @@ export default function Header() {
             : 'pb-1 text-[#BBC9CF] hover:text-[#00BFFF] transition-all duration-300';
 
     return (
-        <header className='border-b border-white/10 bg-[#07111F]/97'>
+        <header className='border-b border-white/10 bg-[#07111F]'>
             <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-3 sm:px-5 md:px-10'>
                 <div className='flex items-center gap-3'>
                     <h1 className='text-2xl font-bold tracking-wide text-white'>

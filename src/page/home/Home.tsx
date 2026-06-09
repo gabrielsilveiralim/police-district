@@ -2,7 +2,7 @@ import Footer from '../../compenent/footer/Footer';
 import Header from '../../compenent/header/Header';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -78,43 +78,107 @@ export default function Home() {
         );
     }, []);
 
+    const scanRef = useRef(null);
+    const line1 = useRef(null);
+    const line2 = useRef(null);
+    const line3 = useRef(null);
+
+    useEffect(() => {
+        gsap.set(scanRef.current, {
+            y: -100
+        });
+
+        gsap.to(scanRef.current, {
+            y: 800,
+            duration: 4,
+            repeat: -1,
+            ease: 'none'
+        });
+    }, []);
+
+    useEffect(() => {
+
+        gsap.fromTo(
+            line1.current,
+            { x: -500 },
+            { x: 2500,
+                duration: 6,
+                repeat: -1,
+                ease: 'none'
+            }
+        );
+
+        gsap.fromTo(
+            line2.current,
+            { x: -500 },
+            { x: 2500,
+                duration: 4,
+                repeat: -1,
+                ease: 'none'
+            }
+        );
+
+        gsap.fromTo(
+            line3.current,
+            { x: -500 },
+            { x: 2500,
+                duration: 3,
+                repeat: -1,
+                ease: 'none'
+            }
+        );
+
+    }, []);
+
     return (
         <>
         <Header />
         <main className='flex flex-col h-full bg-[#03101e]'>
-            <section className='grid grid-cols-1 md:flex md:justify-between md:gap-10 mt-30 px-3 sm:px-5 md:px-15 lg:px-30 xl:px-40'>
-                <div className=''>
-                    <h1 className='text-3xl font-bold text-white max-w-lg'>INTELIGÊNCIA LÓGICA APLICADA À <span className='text-[#00BFFF]'>SEGURANÇA PÚBLICA</span></h1>
-                    <p className='mt-6 max-w-2xl text-sm leading-6 text-[#BBC9CF]'> Plataforma inteligente de monitoramento e análise criminal desenvolvida
-                        para auxiliar a segurança pública através de lógica proposicional,
-                        priorização automática de ocorrências e visualização estratégica de dados.
-                        O sistema conecta cidadãos e distritos policiais, permitindo o registro
-                        rápido de denúncias, geração de alertas inteligentes e análise em tempo
-                        real das regiões de maior risco da cidade de São Luís.</p>
+            <section className='relative overflow-hidden px-3 sm:px-5 md:px-15 lg:px-30 xl:px-40'>
+                <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+
+                    <div className='absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]' />
+
+                    <div
+                        ref={scanRef}
+                        className='absolute left-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent shadow-[0_0_20px_rgba(34,211,238,0.8)]'
+                    />
+
+                    <div
+                        ref={line1}
+                        className='absolute top-[6%] h-px w-80 bg-gradient-to-r from-transparent via-blue-400 to-transparent'
+                    />
+
+                    <div
+                        ref={line2}
+                        className='absolute top-[50%] h-px w-96 bg-gradient-to-r from-transparent via-sky-500 to-transparent'
+                    />
+
+                    <div
+                        ref={line3}
+                        className='absolute top-[85%] h-px w-72 bg-gradient-to-r from-transparent via-blue-500 to-transparent'
+                    />
+
                 </div>
 
-                <div id='current-situation' className='mt-10 w-full max-w-sm rounded-2xl border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-8 shadow-2xl backdrop-blur-md'>
-                    <h2 className='mb-5 border-b border-white/10 pb-3 text-xs font-medium tracking-[0.2em] text-[#BBC9CF]'>
-                        SITUAÇÃO ATUAL
-                    </h2>
+                <div className='relative z-10 mx-auto flex min-h-[85vh] max-w-7xl items-center justify-between gap-10'>
+                    <div className='max-w-3xl'>
+                        <h1 className='text-4xl font-bold text-white lg:text-5xl'>
+                            INTELIGÊNCIA LÓGICA APLICADA À <span className='text-[#00BFFF]'> SEGURANÇA PÚBLICA </span>
+                        </h1>
 
-                    <div className='grid grid-cols-2 gap-4'>
-                        <div className=''>
-                            <span className='text-3xl font-bold text-[#FF4D4D]'>
-                                12
-                            </span>
-                            <p className='mt-1 text-xs text-[#BBC9CF]'>
-                                Alertas críticos
-                            </p>
-                        </div>
-                        <div className=''>
-                            <span className='text-3xl font-bold text-[#22C55E]'>
-                                23
-                            </span>
-                            <p className='mt-1 text-xs text-[#BBC9CF]'>
-                                Viaturas ativas
-                            </p>
-                        </div>
+                        <p className='mt-6 max-w-2xl text-sm leading-7 text-[#BBC9CF]'>
+                            Plataforma inteligente de monitoramento e análise criminal desenvolvida
+                            para a segurança pública através de lógica proposicional,
+                            priorização automática de ocorrências e visualização estratégica de dados.
+                            O sistema conecta cidadãos e distritos policiais, permitindo o registro
+                            rápido de denúncias, geração de alertas inteligentes e análise em tempo
+                            real das regiões de maior risco da cidade de São Luís.
+                        </p>
+                    </div>
+
+                    <div className='hidden md:flex justify-center items-center'>
+                        <img src='./olho.png' alt='Imagem de segurança pública' className='w-52 lg:w-72 object-contain opacity-90' />
                     </div>
                 </div>
             </section>
@@ -124,9 +188,7 @@ export default function Home() {
                     <div className='absolute -left-20 top-0 h-72 w-72 rounded-full bg-[#00BFFF]/10 blur-3xl' />
                     <div className='absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#FF4D4D]/10 blur-3xl' />
                     <div className='relative'>
-                        <span className='text-xs text-[#00BFFF]'>
-                            SOBRE A PLATAFORMA
-                        </span>
+                        <span className='text-xs text-[#00BFFF]'> SOBRE A PLATAFORMA </span>
                         <div className='mt-8 gap-10 w-full'>
                             <div>
                                 <h2 className='max-w-xl text-3xl font-bold leading-tight text-white'>

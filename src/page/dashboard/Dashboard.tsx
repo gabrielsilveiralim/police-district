@@ -62,87 +62,127 @@ export default function Dashboard() {
         '#FACC15'
     ];
 
+    const stats = [
+    {
+        title: 'Ocorrências Críticas',
+        value: '03',
+        color: 'text-red-400',
+        icon: TriangleAlert
+    },
+    {
+        title: 'Denúncias Recebidas',
+        value: '16',
+        color: 'text-cyan-400',
+        icon: Radio
+    },
+    {
+        title: 'Viaturas Disponíveis',
+        value: '09',
+        color: 'text-emerald-400',
+        icon: CarFront
+    },
+    {
+        title: 'Áreas Sob Atenção',
+        value: '02',
+        color: 'text-amber-400',
+        icon: CircleAlert
+    }
+];
+
     return (
         <>
             <Header />
             <main className='h-full w-full bg-[#03101e] py-8'>
                 <section className='px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32'> 
-                    <div className='grid grid-cols-2 lg:grid-cols-4 gap-5'>
-                        <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md'>
-                            <div className='mb-3 flex items-center justify-between'>
-                                <p className='text-sm tracking-wide text-[#BBC9CF]'> Ocorrências Críticas </p>
-                                <TriangleAlert size={22} className='text-[#FF4D4D]'/>
-                            </div>
-                            <span className='text-3xl font-bold text-[#FF4D4D]'> 3 </span>
-                        </div>
-
-                        <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md/30'>
-                            <div className='mb-3 flex items-center justify-between'>
-                                <p className='text-sm tracking-wide text-[#BBC9CF]'> Denúncias Recebidas </p>
-                                <Radio size={22} className='text-[#A4E6FF]'/>
-                            </div>
-                            <span className='text-3xl font-bold text-[#A4E6FF]'> 16 </span>
-                        </div>
-
-                        <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md'>
-                            <div className='mb-3 flex items-center justify-between'>
-                                <p className='text-sm tracking-wide text-[#BBC9CF]'> Viaturas Disponíveis </p>
-                                <CarFront size={22} className='text-[#22C55E]'/>
-                            </div>
-                            <span className='text-3xl font-bold text-[#22C55E]'> 9 </span>
-                        </div>
-                        <div className='h-32 rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl backdrop-blur-md'>
-                            <div className='mb-3 flex items-center justify-between'>
-                                <p className='text-sm tracking-wide text-[#BBC9CF]'> Áreas Sob Atenção </p>
-                                <CircleAlert size={22} className='text-[#FACC15]'/>
-                            </div>
-                            <span className='text-3xl font-bold text-[#FACC15]'> 2 </span>
-                        </div>
+                    <div className="mb-8 p-4">
+                        <h1 className="mt-4 text-5xl font-black text-white"> Painel Operacional </h1>
+                        <p className="mt-4 max-w-3xl text-[#9AA8B7]">
+                            Monitoramento em tempo real das ocorrências,
+                            viaturas e áreas críticas da cidade.
+                        </p>
                     </div>
 
-                    <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-6'>
-                        <div className='rounded-2xl p-6 border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] shadow-2xl'>
-                            <div className='mb-5'>
-                                <h2 className='text-xl font-bold text-[#BBC9CF]'>Crimes Semanais</h2>
+                    <div className='grid gap-5 grid-cols-2 p-6'>
+                        {stats.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <div key={item.title} className='group relative overflow-hidden rounded-3xl bg-[#020d1d] backdrop-blur-xl border border-white/10 '>
+                                    <div className='absolute inset-0 bg-transparent' />
+                                    <div className='relative rounded-3xl p-6'>
+                                        <div className='mb-6 flex items-center justify-between'>
+                                            <span className='text-sm text-[#8EA1B5]'> {item.title} </span>
+                                            <div className='flex h-8 w-8 items-center justify-center rounded-2xl bg-[#07111F]'>
+                                                <Icon size={20} className={item.color} />
+                                            </div>
+                                        </div>
+                                        <h2 className={`text-5xl font-medium ${item.color}`}> {item.value} </h2>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className='mt-10 grid gap-6 xl:grid-cols-[1.5fr_1fr]'>
+                        <div className='rounded-[28px] border border-white/10 bg-[#0D1623]/90 backdrop-blur-xl p-7'>
+                            <div className='mb-6 flex items-center justify-between'>
+                                <div>
+                                    <h2 className='mt-1 text-2xl font-bold text-white'> Crimes Semanais </h2>
+                                </div>
+                                <span className='rounded-full bg-cyan-500/10 px-4 py-2 text-xs text-cyan-400'> Últimos 7 dias </span>
                             </div>
-                            <div className='h-64 lg:h-80'>
-                                <ResponsiveContainer width='100%' height='100%'>
+                            <div className='h-96'>
+                                <ResponsiveContainer>
                                     <LineChart data={evo}>
-                                        <CartesianGrid strokeDasharray='3 3' />
-                                        <XAxis dataKey='day' />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Line
-                                            type='monotone'
-                                            dataKey='crimes'
-                                            stroke='#A4E6FF'
-                                            strokeWidth={3} />
+                                        <CartesianGrid stroke='#1A2736' vertical={false}/>
+                                        <XAxis dataKey='day' tick={{ fill: '#8EA1B5' }} axisLine={false} tickLine={false} />
+                                        <YAxis tick={{ fill: '#8EA1B5' }} axisLine={false} tickLine={false} />
+                                        <Tooltip
+                                            contentStyle={{
+                                               
+                                                border: '1px solid #1F2D3D',
+                                                borderRadius: '16px',
+                                                color: '#fff'
+                                            }}/>
+                                        <Line type='monotone' dataKey='crimes' stroke='#22D3EE' strokeWidth={4} dot={{ r: 5, fill: '#22D3EE' }} activeDot={{ r: 8 }} />
                                     </LineChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        <div className='rounded-2xl border border-white/10 bg-linear-to-r from-[#07111F] via-[#0B1729] to-[#102038] p-5 shadow-2xl'>
-                            <div className='mb-5 flex items-center justify-between'>
-                                <h2 className='text-xl font-bold text-[#BBC9CF]'>Tipos de Crimes</h2>
-                                <span className='text-xs tracking-wide text-[#BBC9CF]'>RELATÓRIO</span>
+                        <div className='rounded-[28px] border border-white/10 bg-[#0D1623] backdrop-blur-xl p-7'>
+                            <div className='mb-6'>
+                                <p className='text-sm text-cyan-400'> DISTRIBUIÇÃO </p>
+                                <h2 className='mt-1 text-2xl font-bold text-white'> Tipos de Crimes </h2>
                             </div>
-                            <div className='h-64 lg:h-80'>
-                                <ResponsiveContainer width='100%' height='100%'>
+
+                            <div className='h-96'>
+                                <ResponsiveContainer>
                                     <PieChart>
-                                        <Pie
-                                            data={pizza}
-                                            dataKey='value'
-                                            cx='50%'
-                                            cy='50%'
-                                            outerRadius={110} >
+                                        <Pie data={pizza} dataKey='value' innerRadius={70} outerRadius={120} paddingAngle={5}>
                                             {pizza.map((_, index) => (
-                                                <Cell key={index} fill={COLORS[index]} />
+                                                <Cell key={index} fill={COLORS[index]}  />
                                             ))}
                                         </Pie>
-                                        <Tooltip />
+                                        <Tooltip
+                                            contentStyle={{
+                                                background: '#0D1623',
+                                                border: '1px solid #1F2D3D',
+                                                borderRadius: '16px'
+                                            }}/>
                                     </PieChart>
                                 </ResponsiveContainer>
+                            </div>
+
+                            <div className='mt-4 grid grid-cols-2 gap-3'>
+                                {pizza.map((item, index) => (
+                                    <div key={item.name} className='flex items-center gap-3'>
+                                        <div className='h-3 w-3 rounded-full'
+                                            style={{backgroundColor: COLORS[index] }} />
+                                        <span className='text-sm text-[#8EA1B5]'>
+                                            {item.name}
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>                    

@@ -145,7 +145,7 @@ export default function Reports() {
           </div>
 
           {/* TABELA */}
-          <div className='mt-8 mb-10 overflow-hidden rounded-3xl border border-white/10 bg-[#020d1d] backdrop-blur-xl'>
+          <div className='mt-8 mb-10 overflow-x-auto rounded-3xl border border-white/10 bg-[#020d1d] backdrop-blur-xl'>
             <table className='w-full'>
               <thead>
                 <tr className='border-b border-white/10'>
@@ -195,16 +195,18 @@ export default function Reports() {
           </div>
 
           {selectedReport && (
-            <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4'>
-              <div className='relative w-full max-w-3xl overflow-hidden rounded-4xl border border-white/10 bg-[#0D1623] shadow-2xl'>
-                {/* Glow */}
-                <div className='absolute top-0 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[100px]' />
-                <div className='relative p-8'>
+          <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-3 sm:p-4'>
+            
+            <div className='relative w-full max-w-[95vw] sm:max-w-2xl lg:max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0D1623] shadow-2xl'>
+
+              <div className='absolute top-0 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[100px]' />
+
+              <div className='relative p-4 sm:p-6 lg:p-8'>
                   {/* Header */}
-                  <div className='mb-8 flex items-start justify-between'>
+                  <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between'>
                     <div>
                       <p className='text-sm tracking-[0.2em] text-cyan-400'> OCORRÊNCIA </p>
-                      <h2 className='mt-2 text-3xl font-bold text-white'> #{selectedReport.id} </h2>
+                      <h2 className='mt-2 text-2xl sm:text-3xl font-bold text-white'> #{selectedReport.id} </h2>
                     </div>
 
                     <button onClick={() => setSelectedReport(null)} className='flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white hover:bg-white/10'>
@@ -213,7 +215,7 @@ export default function Reports() {
                   </div>
 
                   {/* Dados */}
-                  <div className='grid gap-5 md:grid-cols-2'>
+                  <div className='grid gap-4 grid-cols-1 sm:grid-cols-2'>
                     <InfoCard title='Tipo' value={selectedReport.type} />
                     <InfoCard title='Prioridade' value={selectedReport.priority} />
                     <InfoCard title='Bairro' value={selectedReport.district} />
@@ -233,9 +235,9 @@ export default function Reports() {
                   {/* Evidências */}
                   <div className='mt-8'>
                     <h3 className='mb-4 text-lg font-semibold text-white'> Evidências </h3>
-                    <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
                       {selectedReport.images?.map((img, index) => (
-                        <img key={index} src={img}  alt='' className='h-32 w-full rounded-2xl object-cover' />
+                        <img key={index} src={img}  alt='' className='h-40 sm:h-32 w-full rounded-2xl object-cover' />
                       ))}
                     </div>
                   </div>

@@ -103,17 +103,17 @@ export default function Occurrence() {
 
                     {step === 2 && (
                         <div className='grid gap-4 md:grid-cols-2'>
-                            <input placeholder='Estado' className='rounded-xl bg-white/5 p-3 text-white'/>
-                            <input placeholder='Cidade' className='rounded-xl bg-white/5 p-3 text-white' />
-                            <input placeholder='Bairro' className='rounded-xl bg-white/5 p-3 text-white' />
-                            <input placeholder='Endereço' className='rounded-xl bg-white/5 p-3 text-white' />
+                            <input placeholder='Estado' required className='rounded-xl bg-white/5 p-3 text-white'/>
+                            <input placeholder='Cidade' required className='rounded-xl bg-white/5 p-3 text-white' />
+                            <input placeholder='Bairro' required className='rounded-xl bg-white/5 p-3 text-white' />
+                            <input placeholder='Endereço' required className='rounded-xl bg-white/5 p-3 text-white' />
                         </div>
                     )}
 
                     {step === 3 && (
                         <div className='space-y-4'>
-                            <input  placeholder='Nome da vítima' className='w-full rounded-xl bg-white/5 p-3 text-white'/>
-                            <input placeholder='Suspeito conhecido' className='w-full rounded-xl bg-white/5 p-3 text-white' />
+                            <input  placeholder='Nome da vítima' required className='w-full rounded-xl bg-white/5 p-3 text-white'/>
+                            <input placeholder='Suspeito conhecido' required className='w-full rounded-xl bg-white/5 p-3 text-white' />
                             <input type='file' multiple className='w-full rounded-xl border border-dashed border-red-500/30 p-5 text-white' />
                         </div>
                     )}
@@ -121,7 +121,7 @@ export default function Occurrence() {
                     {step === 4 && (
                         <div className='space-y-4'>
                             <textarea rows={8} value={description} onChange={(e) => setDescription(e.target.value)}
-                                placeholder='Descreva detalhadamente a ocorrência...' className='w-full rounded-2xl bg-white/5 p-5 text-white' />
+                                placeholder='Descreva detalhadamente a ocorrência...' required className='w-full rounded-2xl bg-white/5 p-5 text-white' />
                         </div>
                     )}
 
